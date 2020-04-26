@@ -1,7 +1,18 @@
-<div id="hello">
+<div id="bookid">
   <h1>Page</h1>
-  {{ message }}
+
+  <% @books.each do |book| %>
+    <div class="container">
+      <p v-on:click="setBookInfo(<%= book.id %>)"><%= book.title %></p>
+    </div>
+  <% end %>
+
+  <div v-show="bookInfoBool">
+    <p>{{ bookInfo.title }}</p>
+    <p>{{ bookInfo.author }}</p>
+    <p>{{ bookInfo.publisher }}</p>
+    <p>{{ bookInfo.genre }}</p>
+  </div>
 </div>
 
-<%= javascript_pack_tag "hello_vue" %>
-
+<%= javascript_pack_tag "books/index"%>
