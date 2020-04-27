@@ -1,18 +1,34 @@
 <div id="bookid">
-  <h1>Page</h1>
+  <h1>BookChart</h1>
 
-  <% @books.each do |book| %>
-    <div class="container">
-      <p v-on:click="setBookInfo(<%= book.id %>)"><%= book.title %></p>
-    </div>
-  <% end %>
+  <div class="accordion" id="accordion_design">
+    <% i = 1 %>
+    <% @books.each do |book| %>
+      <% i+=1 %>
+      <div class="card">
+        <div class="card-header" id="heading<%= i %>">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse_<%= i %>" aria-expanded="false" aria-controls="collapse_<%= i %>" v-on:click="setBookInfo(<%= book.id %>)">
+              <%= book.title %>
+            </button>
+          </h2>
+        </div>
 
-  <div v-show="bookInfoBool">
-    <p>{{ bookInfo.title }}</p>
-    <p>{{ bookInfo.author }}</p>
-    <p>{{ bookInfo.publisher }}</p>
-    <p>{{ bookInfo.genre }}</p>
+        <div id="collapse_<%= i %>" class="collapse" aria-labelledby="heading<%= i %>" data-parent="#accordion_design">
+          <div class="card-body" v-show="bookInfoBool">
+            <h1>{{ bookInfo.title }}</h1>
+            <h4>作者</h4>
+            <p>{{ bookInfo.author }}</p>
+            <h4>出版社</h4>
+            <p>{{ bookInfo.publisher }}</p>
+            <h4>ジャンル</h4>
+            <p>{{ bookInfo.genre }}</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
 <%= javascript_pack_tag "books/index"%>
+
